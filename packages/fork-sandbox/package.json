@@ -1,0 +1,32 @@
+{
+  "name": "@t3tools/fork-sandbox",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./contracts": {
+      "types": "./src/contracts.ts",
+      "import": "./src/contracts.ts"
+    },
+    "./server": {
+      "types": "./src/server/index.ts",
+      "import": "./src/server/index.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vp test run --config ../../vite.config.ts --dir ."
+  },
+  "dependencies": {
+    "@t3tools/contracts": "workspace:*",
+    "@t3tools/ssh": "workspace:*",
+    "@vercel/sandbox": "3.9.0",
+    "e2b": "2.59.0",
+    "effect": "catalog:"
+  },
+  "devDependencies": {
+    "@effect/platform-node": "catalog:",
+    "@effect/vitest": "catalog:",
+    "@types/node": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}
