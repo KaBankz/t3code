@@ -1,4 +1,4 @@
-import { ChevronsLeftRightEllipsisIcon, PlusIcon, TerminalIcon } from "lucide-react";
+import { ChevronsLeftRightEllipsisIcon, CloudIcon, PlusIcon, TerminalIcon } from "lucide-react";
 import { useAtomValue } from "@effect/atom-react";
 import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from "react";
 import {
@@ -63,6 +63,7 @@ import {
   parseRemotePairingFields,
   formatDesktopSshConnectionError,
 } from "./ConnectionsSettings.logic";
+import { CloudSandboxPanel } from "~/fork/sandbox/CloudSandboxPanel";
 
 const EMPTY_DISCOVERED_SSH_HOSTS: ReadonlyArray<DesktopDiscoveredSshHost> = [];
 
@@ -108,7 +109,7 @@ export function AddEnvironmentDialog({
     }
     return keys;
   })();
-  const [savedBackendMode, setSavedBackendMode] = useState<"remote" | "ssh">("remote");
+  const [savedBackendMode, setSavedBackendMode] = useState<"remote" | "ssh" | "sandbox">("remote");
   const [savedBackendHost, setSavedBackendHost] = useState("");
   const [savedBackendPairingCode, setSavedBackendPairingCode] = useState("");
   const [savedBackendSshHost, setSavedBackendSshHost] = useState("");
@@ -335,7 +336,7 @@ export function AddEnvironmentDialog({
     setSavedBackendHost(value);
   };
   const renderConnectionModeCard = (input: {
-    readonly mode: "remote" | "ssh";
+    readonly mode: "remote" | "ssh" | "sandbox";
     readonly title: string;
     readonly description: string;
     readonly icon?: ReactNode;
@@ -622,7 +623,7 @@ export function AddEnvironmentDialog({
         </DialogHeader>
         <DialogPanel>
           <div className="space-y-4">
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:auto-cols-fr sm:grid-flow-col">
               {renderConnectionModeCard({
                 mode: "remote",
                 title: "Remote link",
@@ -637,9 +638,32 @@ export function AddEnvironmentDialog({
                     icon: <TerminalIcon aria-hidden className="size-4" />,
                   })
                 : null}
+              {routeTarget
+                ? null
+                : renderConnectionModeCard({
+                    mode: "sandbox",
+                    title: "Cloud sandbox",
+                    description: "Start T3 Code in a new E2B or Vercel sandbox.",
+                    icon: <CloudIcon aria-hidden className="size-4" />,
+                  })}
             </div>
             <AnimatedHeight>
-              {savedBackendMode === "ssh" ? renderSshFields() : renderRemoteModeBody()}
+              {savedBackendMode === "sandbox" ? (
+                <CloudSandboxPanel
+                  onConnected={(label) => {
+                    onOpenChange(false);
+                    toastManager.add({
+                      type: "success",
+                      title: "Sandbox connected",
+                      description: `${label} is ready as an environment.`,
+                    });
+                  }}
+                />
+              ) : savedBackendMode === "ssh" ? (
+                renderSshFields()
+              ) : (
+                renderRemoteModeBody()
+              )}
             </AnimatedHeight>
           </div>
         </DialogPanel>
