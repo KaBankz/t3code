@@ -190,6 +190,7 @@ import { makePersistedServerRuntimeState } from "./serverRuntimeState.ts";
 import { acceptsPrivateNetworkConnection, loopbackUrlHostForAddress } from "./startupAccess.ts";
 import * as OrchestrationHttp from "./orchestration-v2/http.ts";
 import * as ProjectHttp from "./project/http.ts";
+import * as ForkSandboxHttp from "./fork/sandboxHttp.ts";
 import * as NetService from "@t3tools/shared/Net";
 import * as RelayClient from "@t3tools/shared/relayClient";
 import { disableTailscaleServe, ensureTailscaleServe } from "@t3tools/tailscale";
@@ -712,6 +713,7 @@ const layerMakeRoutes = Layer.mergeAll(
       Layer.provide(WebhookRoute.layer.pipe(Layer.provide(RelayDeliveryProof.layer))),
       Layer.provide(AuthHttp.layerAuthenticatedAuth),
     ),
+    ForkSandboxHttp.routesLayer,
     ServerHttp.layerOtlpTracesProxyRoute,
     ServerHttp.layerAssetRoute,
     ServerHttp.layerAttachmentUploadRoute,
