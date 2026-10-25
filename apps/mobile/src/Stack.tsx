@@ -299,7 +299,7 @@ const SETTINGS_SCREENS = {
   SettingsAbout: createNativeStackScreen({
     screen: SettingsAboutRouteScreen,
     linking: "settings/about",
-    options: { ...SETTINGS_PAGE_OPTIONS, title: "About T3 Code" },
+    options: { ...SETTINGS_PAGE_OPTIONS, title: "About Crafting Table" },
   }),
   SettingsEnvironmentNew: createNativeStackScreen({
     screen: ConnectionsNewRouteScreen,

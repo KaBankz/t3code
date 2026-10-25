@@ -643,7 +643,7 @@ export function AddEnvironmentDialog({
                 : renderConnectionModeCard({
                     mode: "sandbox",
                     title: "Cloud sandbox",
-                    description: "Start T3 Code in a new E2B or Vercel sandbox.",
+                    description: "Start Crafting Table in a new E2B or Vercel sandbox.",
                     icon: <CloudIcon aria-hidden className="size-4" />,
                   })}
             </div>

@@ -189,7 +189,7 @@ export const makeOpenCodeTextGeneration = Effect.fn("makeOpenCodeTextGeneration"
           try: (signal) =>
             client.session.create(
               {
-                title: `T3 Code ${input.operation}`,
+                title: `Crafting Table ${input.operation}`,
                 permission: [{ permission: "*", pattern: "*", action: "deny" }],
               },
               { signal },

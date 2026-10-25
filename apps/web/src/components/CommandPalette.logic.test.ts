@@ -596,7 +596,9 @@ describe("buildThreadActionItems", () => {
     });
     const items = buildThreadActionItems({
       threads: [idThread, titleThread],
-      projectByKey: new Map([[`${LOCAL_ENVIRONMENT_ID}:${PROJECT_ID}`, { title: "T3 Code" }]]),
+      projectByKey: new Map([
+        [`${LOCAL_ENVIRONMENT_ID}:${PROJECT_ID}`, { title: "Crafting Table" }],
+      ]),
       icon: null,
       runThread: async (_thread) => undefined,
     });
