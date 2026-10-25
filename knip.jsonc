@@ -27,6 +27,7 @@
         "knip-schemas.ts",
         "mobile-native-client.ts",
         "setup-worktree.ts",
+        "fork/rebrand.ts",
         "sign-macos.ts",
         "verify-windows-desktop-artifact.ts",
       ],
